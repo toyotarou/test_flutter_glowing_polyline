@@ -95,9 +95,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with SingleTickerProvid
 
   ///
   void _startBlink() {
-    sharedBlink.start();
-
+    sharedBlink.restartFromZero();
     setState(() => _blinkRunning = true);
+  }
+
+  ///
+  void _onSelectRoute(RouteLineModel model) {
+    ref.read(routeLinesProvider.notifier).addOrMoveToLast(model);
+
+    if (_blinkRunning) {
+      sharedBlink.restartFromZero();
+    }
   }
 
   ///
@@ -218,15 +226,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with SingleTickerProvid
   ///
   Widget displayPolylineSelectButton() {
     final List<Widget> value = <Widget>[
-      _routeButton(context, 'a', onTap: () => ref.read(routeLinesProvider.notifier).addOrMoveToLast(routeA())),
-
-      _routeButton(context, 'b', onTap: () => ref.read(routeLinesProvider.notifier).addOrMoveToLast(routeB())),
-
-      _routeButton(context, 'c', onTap: () => ref.read(routeLinesProvider.notifier).addOrMoveToLast(routeC())),
-
-      _routeButton(context, 'd', onTap: () => ref.read(routeLinesProvider.notifier).addOrMoveToLast(routeD())),
-
-      _routeButton(context, 'e', onTap: () => ref.read(routeLinesProvider.notifier).addOrMoveToLast(routeE())),
+      _routeButton(context, 'a', onTap: () => _onSelectRoute(routeA())),
+      _routeButton(context, 'b', onTap: () => _onSelectRoute(routeB())),
+      _routeButton(context, 'c', onTap: () => _onSelectRoute(routeC())),
+      _routeButton(context, 'd', onTap: () => _onSelectRoute(routeD())),
+      _routeButton(context, 'e', onTap: () => _onSelectRoute(routeE())),
     ];
 
     final List<Widget> list = <Widget>[];

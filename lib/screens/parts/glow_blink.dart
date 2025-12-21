@@ -11,8 +11,9 @@ class GlowBlink {
     _reverse = reverse;
     _controller = AnimationController(vsync: vsync, duration: period);
     _t = CurvedAnimation(parent: _controller, curve: curve);
+
     if (autoStart) {
-      _controller.repeat(reverse: reverse);
+      start(reverse: reverse);
     }
   }
 
@@ -27,8 +28,14 @@ class GlowBlink {
 
   void start({bool? reverse}) {
     _reverse = reverse ?? _reverse;
-    _controller.repeat(reverse: _reverse);
+
+    _controller
+      ..stop()
+      ..value = 0.0
+      ..repeat(reverse: _reverse);
   }
+
+  void restartFromZero({bool? reverse}) => start(reverse: reverse);
 
   void stop() => _controller.stop();
 
