@@ -17,6 +17,7 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
+// ignore: always_specify_types
 class _HomeScreenState extends ConsumerState<HomeScreen> with SingleTickerProviderStateMixin, ControllersMixin {
   late GlowBlink sharedBlink;
 
@@ -62,7 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with SingleTickerProvid
   Widget build(BuildContext context) {
     final RouteLinesState routeLinesState = ref.watch(routeLinesProvider);
 
-    final List<RouteLineModel> routes = routeLinesState.routeLineModelList;
+    final List<RouteLineModel> routes = routeLinesState.activeRoutes;
 
     final int lastIndex = routes.isEmpty ? -1 : routes.length - 1;
 
@@ -104,7 +105,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with SingleTickerProvid
           ),
           IconButton(
             tooltip: '全消去',
-            onPressed: () => ref.read(routeLinesProvider.notifier).clear(),
+            onPressed: () => ref.read(routeLinesProvider.notifier).clearActiveRoutes(),
             icon: const Icon(Icons.delete_outline),
           ),
         ],
@@ -147,17 +148,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with SingleTickerProvid
             ],
           ),
 
-          Positioned(left: 0, right: 0, bottom: 8, child: Center(child: displayPolylineSelectButton())),
+          Positioned(left: 0, right: 0, bottom: 8, child: Center(child: displayPolylineSelectButton(routeLinesState))),
         ],
       ),
     );
   }
 
   ///
-  Widget displayPolylineSelectButton() {
-    final List<RouteLineModel> available = ref.watch(availableRouteLinesProvider);
+  Widget displayPolylineSelectButton(RouteLinesState routeLinesState) {
+    final List<RouteLineModel> available = routeLinesState.availableRoutes;
 
-    // ここが空になるのは provider 側の実装ミスなので、ガードのみ入れておく
     if (available.isEmpty) {
       return const SizedBox.shrink();
     }

@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RouteLinesState {
-  List<RouteLineModel> get routeLineModelList =>
+  List<RouteLineModel> get availableRoutes =>
       throw _privateConstructorUsedError;
+  List<RouteLineModel> get activeRoutes => throw _privateConstructorUsedError;
 
   /// Create a copy of RouteLinesState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +33,9 @@ abstract class $RouteLinesStateCopyWith<$Res> {
           RouteLinesState value, $Res Function(RouteLinesState) then) =
       _$RouteLinesStateCopyWithImpl<$Res, RouteLinesState>;
   @useResult
-  $Res call({List<RouteLineModel> routeLineModelList});
+  $Res call(
+      {List<RouteLineModel> availableRoutes,
+      List<RouteLineModel> activeRoutes});
 }
 
 /// @nodoc
@@ -50,12 +53,17 @@ class _$RouteLinesStateCopyWithImpl<$Res, $Val extends RouteLinesState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? routeLineModelList = null,
+    Object? availableRoutes = null,
+    Object? activeRoutes = null,
   }) {
     return _then(_value.copyWith(
-      routeLineModelList: null == routeLineModelList
-          ? _value.routeLineModelList
-          : routeLineModelList // ignore: cast_nullable_to_non_nullable
+      availableRoutes: null == availableRoutes
+          ? _value.availableRoutes
+          : availableRoutes // ignore: cast_nullable_to_non_nullable
+              as List<RouteLineModel>,
+      activeRoutes: null == activeRoutes
+          ? _value.activeRoutes
+          : activeRoutes // ignore: cast_nullable_to_non_nullable
               as List<RouteLineModel>,
     ) as $Val);
   }
@@ -69,7 +77,9 @@ abstract class _$$RouteLinesStateImplCopyWith<$Res>
       __$$RouteLinesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<RouteLineModel> routeLineModelList});
+  $Res call(
+      {List<RouteLineModel> availableRoutes,
+      List<RouteLineModel> activeRoutes});
 }
 
 /// @nodoc
@@ -85,12 +95,17 @@ class __$$RouteLinesStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? routeLineModelList = null,
+    Object? availableRoutes = null,
+    Object? activeRoutes = null,
   }) {
     return _then(_$RouteLinesStateImpl(
-      routeLineModelList: null == routeLineModelList
-          ? _value._routeLineModelList
-          : routeLineModelList // ignore: cast_nullable_to_non_nullable
+      availableRoutes: null == availableRoutes
+          ? _value._availableRoutes
+          : availableRoutes // ignore: cast_nullable_to_non_nullable
+              as List<RouteLineModel>,
+      activeRoutes: null == activeRoutes
+          ? _value._activeRoutes
+          : activeRoutes // ignore: cast_nullable_to_non_nullable
               as List<RouteLineModel>,
     ));
   }
@@ -100,23 +115,32 @@ class __$$RouteLinesStateImplCopyWithImpl<$Res>
 
 class _$RouteLinesStateImpl implements _RouteLinesState {
   const _$RouteLinesStateImpl(
-      {final List<RouteLineModel> routeLineModelList =
-          const <RouteLineModel>[]})
-      : _routeLineModelList = routeLineModelList;
+      {final List<RouteLineModel> availableRoutes = const <RouteLineModel>[],
+      final List<RouteLineModel> activeRoutes = const <RouteLineModel>[]})
+      : _availableRoutes = availableRoutes,
+        _activeRoutes = activeRoutes;
 
-  final List<RouteLineModel> _routeLineModelList;
+  final List<RouteLineModel> _availableRoutes;
   @override
   @JsonKey()
-  List<RouteLineModel> get routeLineModelList {
-    if (_routeLineModelList is EqualUnmodifiableListView)
-      return _routeLineModelList;
+  List<RouteLineModel> get availableRoutes {
+    if (_availableRoutes is EqualUnmodifiableListView) return _availableRoutes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_routeLineModelList);
+    return EqualUnmodifiableListView(_availableRoutes);
+  }
+
+  final List<RouteLineModel> _activeRoutes;
+  @override
+  @JsonKey()
+  List<RouteLineModel> get activeRoutes {
+    if (_activeRoutes is EqualUnmodifiableListView) return _activeRoutes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_activeRoutes);
   }
 
   @override
   String toString() {
-    return 'RouteLinesState(routeLineModelList: $routeLineModelList)';
+    return 'RouteLinesState(availableRoutes: $availableRoutes, activeRoutes: $activeRoutes)';
   }
 
   @override
@@ -125,12 +149,16 @@ class _$RouteLinesStateImpl implements _RouteLinesState {
         (other.runtimeType == runtimeType &&
             other is _$RouteLinesStateImpl &&
             const DeepCollectionEquality()
-                .equals(other._routeLineModelList, _routeLineModelList));
+                .equals(other._availableRoutes, _availableRoutes) &&
+            const DeepCollectionEquality()
+                .equals(other._activeRoutes, _activeRoutes));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_routeLineModelList));
+      runtimeType,
+      const DeepCollectionEquality().hash(_availableRoutes),
+      const DeepCollectionEquality().hash(_activeRoutes));
 
   /// Create a copy of RouteLinesState
   /// with the given fields replaced by the non-null parameter values.
@@ -144,10 +172,13 @@ class _$RouteLinesStateImpl implements _RouteLinesState {
 
 abstract class _RouteLinesState implements RouteLinesState {
   const factory _RouteLinesState(
-      {final List<RouteLineModel> routeLineModelList}) = _$RouteLinesStateImpl;
+      {final List<RouteLineModel> availableRoutes,
+      final List<RouteLineModel> activeRoutes}) = _$RouteLinesStateImpl;
 
   @override
-  List<RouteLineModel> get routeLineModelList;
+  List<RouteLineModel> get availableRoutes;
+  @override
+  List<RouteLineModel> get activeRoutes;
 
   /// Create a copy of RouteLinesState
   /// with the given fields replaced by the non-null parameter values.
